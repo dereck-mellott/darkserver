@@ -1,12 +1,12 @@
 USE master
 
-IF EXISTS(SELECT name from sys.databases where name=N'DarkServer02')
+IF EXISTS(SELECT name from sys.databases where name=N'DarkServerUsers')
 	DROP DATABASE DarkServer02
 GO
-CREATE DATABASE DarkServer02
+CREATE DATABASE DarkServerUsers
 GO
 
-/*USE DarkServer02*/
+USE DarkServerUsers
 
 /* --------DROP AND CREATE TABLES-------- */
 
