@@ -1,7 +1,7 @@
 USE master
 
 IF EXISTS(SELECT name from sys.databases where name=N'DarkServerUsers')
-	DROP DATABASE DarkServer02
+	DROP DATABASE DarkServerUsers
 GO
 CREATE DATABASE DarkServerUsers
 GO
@@ -32,8 +32,8 @@ CREATE TABLE UserPassword
 (
 	UserPasswordID	INT IDENTITY PRIMARY KEY NOT NULL,
 	UserAccountID	INT NOT NULL,
-	PasswordHash	VARCHAR(128) NOT NULL,
-	PasswordSalt	VARCHAR(64) NOT NULL
+	PasswordHash	VARBINARY(128) NOT NULL,
+	PasswordSalt	VARBINARY(64) NOT NULL
 )
 GO
 
@@ -46,14 +46,14 @@ CREATE TABLE ContactInfo
 	ContactInfoID	INT IDENTITY PRIMARY KEY NOT NULL,
 	UserAccountID	INT NOT NULL,
 	Nickname		VARCHAR(20) NOT NULL,
-	Email			VARCHAR(100) NOT NULL,
+	Email			VARCHAR(50) NOT NULL,
 	BirthDate		DATETIME NULL,
 	EmailVerified	BIT NULL
 )
 GO
 
 /* UserAccountType */
-IF OBJECT_ID('dbo.UserAccountType','U') IS NOT NULL 
+IF OBJECT_ID('dbo.UserAccountType','U') IS NOT NULL
 	DROP TABLE UserAccountType
 GO
 CREATE TABLE UserAccountType
@@ -84,8 +84,8 @@ CREATE TABLE SecurityQuestionAnswer
 (
 	SecurityQuestionAnswerID	INT IDENTITY PRIMARY KEY NOT NULL,
 	SecurityQuestionID			INT NOT NULL,
-	AnswerHash					VARCHAR(128),
-	AnswerSalt					VARCHAR(64)
+	AnswerHash					VARBINARY(128),
+	AnswerSalt					VARBINARY(64)
 )
 GO
 
@@ -210,4 +210,11 @@ GO
 
 INSERT INTO LoginApp (AppName, AppDesc)
 	VALUES ('Test', 'App used for testing')
+GO
+
+-- Create DarkClient user
+CREATE USER DarkClient FOR LOGIN DarkClient
+GO
+
+ALTER ROLE [db_owner] ADD MEMBER [DarkClient]
 GO

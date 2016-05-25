@@ -1,4 +1,4 @@
-use DarkServer02
+use DarkServerUsers
 
 IF EXISTS(SELECT * FROM INFORMATION_SCHEMA.ROUTINES WHERE SPECIFIC_NAME=N'CreateUserAccount')
 	DROP PROCEDURE CreateUserAccount
@@ -8,21 +8,21 @@ CREATE PROCEDURE CreateUserAccount
 	@USERNAME		varchar(20),
 	@ENABLED		bit,
 	@DATECREATED	datetime,
-	@PASSHASH		varchar(128),
-	@PASSSALT		varchar(64),
+	@PASSHASH		varbinary(128),
+	@PASSSALT		varbinary(64),
 	@NICKNAME		varchar(20),
 	@EMAIL			varchar(100),
 	@BIRTHDATE		datetime,
 	@ACCTYPE		varchar(20),
-	@ANSHASH		varchar(128),
-	@ANSSALT		varchar(64),
+	@ANSHASH		varbinary(128),
+	@ANSSALT		varbinary(64),
 	@QUESTYPE		varchar(100),
 	@RVAL			INT OUTPUT
 AS
 BEGIN
 	IF NOT EXISTS(SELECT UserAccountID FROM UserAccount WHERE Username = @USERNAME)
 	BEGIN
-		
+
 		-- Grab UserAccountTypeID and SecurityQuestionTypeID for later use
 		DECLARE @ACCTYPEID		int = (SELECT UserAccountTypeID FROM UserAccountType WHERE TypeName = @ACCTYPE)
 		DECLARE @QUESTTYPEID	int = (SELECT SecurityQuestionTypeID FROM SecurityQuestionType WHERE QuestionText = @QUESTYPE)
