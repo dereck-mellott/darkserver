@@ -1,0 +1,2 @@
+# DarkServer Client
+This is the client portion of the DarkServer system. It is used as a library for other applications to be able to interact with the server portion of the system.
