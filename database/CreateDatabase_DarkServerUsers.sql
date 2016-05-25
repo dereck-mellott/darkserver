@@ -1,7 +1,7 @@
 USE master
 
 IF EXISTS(SELECT name from sys.databases where name=N'DarkServerUsers')
-	DROP DATABASE DarkServer02
+	DROP DATABASE DarkServerUsers
 GO
 CREATE DATABASE DarkServerUsers
 GO
@@ -17,7 +17,7 @@ GO
 CREATE TABLE UserAccount
 (
 	UserAccountID		INT IDENTITY PRIMARY KEY NOT NULL,
-	Username			VARCHAR(20) NOT NULL,
+	Username				VARCHAR(20) NOT NULL,
 	IsEnabled			BIT NULL,
 	DateCreated			DATETIME NULL,
 	UserAccountTypeID	INT NOT NULL,
@@ -32,8 +32,8 @@ CREATE TABLE UserPassword
 (
 	UserPasswordID	INT IDENTITY PRIMARY KEY NOT NULL,
 	UserAccountID	INT NOT NULL,
-	PasswordHash	VARCHAR(128) NOT NULL,
-	PasswordSalt	VARCHAR(64) NOT NULL
+	PasswordHash	VARBINARY(128) NOT NULL,
+	PasswordSalt	VARBINARY(64) NOT NULL
 )
 GO
 
@@ -45,15 +45,15 @@ CREATE TABLE ContactInfo
 (
 	ContactInfoID	INT IDENTITY PRIMARY KEY NOT NULL,
 	UserAccountID	INT NOT NULL,
-	Nickname		VARCHAR(20) NOT NULL,
-	Email			VARCHAR(100) NOT NULL,
+	Nickname			VARCHAR(20) NOT NULL,
+	Email				VARCHAR(50) NOT NULL,
 	BirthDate		DATETIME NULL,
 	EmailVerified	BIT NULL
 )
 GO
 
 /* UserAccountType */
-IF OBJECT_ID('dbo.UserAccountType','U') IS NOT NULL 
+IF OBJECT_ID('dbo.UserAccountType','U') IS NOT NULL
 	DROP TABLE UserAccountType
 GO
 CREATE TABLE UserAccountType
@@ -71,7 +71,7 @@ GO
 CREATE TABLE SecurityQuestion
 (
 	SecurityQuestionID		INT IDENTITY PRIMARY KEY NOT NULL,
-	UserAccountID			INT NOT NULL,
+	UserAccountID				INT NOT NULL,
 	SecurityQuestionTypeID	INT NOT NULL,
 )
 GO
@@ -84,8 +84,8 @@ CREATE TABLE SecurityQuestionAnswer
 (
 	SecurityQuestionAnswerID	INT IDENTITY PRIMARY KEY NOT NULL,
 	SecurityQuestionID			INT NOT NULL,
-	AnswerHash					VARCHAR(128),
-	AnswerSalt					VARCHAR(64)
+	AnswerHash						VARBINARY(128),
+	AnswerSalt						VARBINARY(64)
 )
 GO
 
