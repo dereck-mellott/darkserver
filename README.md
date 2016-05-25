@@ -1,2 +1,2 @@
-# darkserver-database
-Database system for the DarkServer architecture. Consists of .sql files which can be run against a SQL server instance to create and modify the DarkServer database structure.
+# DarkServer
+DarkServer is a system for user creation, authentication, and session logging. The project conists of three parts, the database, the server, and the client. The database holds all information pertaining to users. The client will be a means for which an application will be able to interact with the server. The server will be an intermediary between the database and the client. This creates and additional layer of security for user information.
