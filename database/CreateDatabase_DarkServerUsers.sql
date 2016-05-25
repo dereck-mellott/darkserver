@@ -17,7 +17,7 @@ GO
 CREATE TABLE UserAccount
 (
 	UserAccountID		INT IDENTITY PRIMARY KEY NOT NULL,
-	Username				VARCHAR(20) NOT NULL,
+	Username			VARCHAR(20) NOT NULL,
 	IsEnabled			BIT NULL,
 	DateCreated			DATETIME NULL,
 	UserAccountTypeID	INT NOT NULL,
@@ -45,8 +45,8 @@ CREATE TABLE ContactInfo
 (
 	ContactInfoID	INT IDENTITY PRIMARY KEY NOT NULL,
 	UserAccountID	INT NOT NULL,
-	Nickname			VARCHAR(20) NOT NULL,
-	Email				VARCHAR(50) NOT NULL,
+	Nickname		VARCHAR(20) NOT NULL,
+	Email			VARCHAR(50) NOT NULL,
 	BirthDate		DATETIME NULL,
 	EmailVerified	BIT NULL
 )
@@ -71,7 +71,7 @@ GO
 CREATE TABLE SecurityQuestion
 (
 	SecurityQuestionID		INT IDENTITY PRIMARY KEY NOT NULL,
-	UserAccountID				INT NOT NULL,
+	UserAccountID			INT NOT NULL,
 	SecurityQuestionTypeID	INT NOT NULL,
 )
 GO
@@ -84,8 +84,8 @@ CREATE TABLE SecurityQuestionAnswer
 (
 	SecurityQuestionAnswerID	INT IDENTITY PRIMARY KEY NOT NULL,
 	SecurityQuestionID			INT NOT NULL,
-	AnswerHash						VARBINARY(128),
-	AnswerSalt						VARBINARY(64)
+	AnswerHash					VARBINARY(128),
+	AnswerSalt					VARBINARY(64)
 )
 GO
 
@@ -210,4 +210,11 @@ GO
 
 INSERT INTO LoginApp (AppName, AppDesc)
 	VALUES ('Test', 'App used for testing')
+GO
+
+-- Create DarkClient user
+CREATE USER DarkClient FOR LOGIN DarkClient
+GO
+
+ALTER ROLE [db_owner] ADD MEMBER [DarkClient]
 GO
