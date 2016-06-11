@@ -1,0 +1,16 @@
+﻿@using DarkServer
+@{DarkLoginSession s = (DarkLoginSession)Session["DarkLoginSession"];}
+@if (s.IsAuthenticated)
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#">@s.Username</a></li>
+        <li><a href="/Session/Logoff">Log off</a></li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="/Account/Register">Register</a></li>
+        <li><a href="/Session/Login">Log in</a></li>
+    </ul>
+}

@@ -37,21 +37,6 @@ CREATE TABLE UserPassword
 )
 GO
 
-/* ContactInfo */
-IF OBJECT_ID('dbo.ContactInfo','U') IS NOT NULL
-	DROP TABLE ContactInfo
-GO
-CREATE TABLE ContactInfo
-(
-	ContactInfoID	INT IDENTITY PRIMARY KEY NOT NULL,
-	UserAccountID	INT NOT NULL,
-	Nickname		VARCHAR(20) NOT NULL,
-	Email			VARCHAR(50) NOT NULL,
-	BirthDate		DATETIME NULL,
-	EmailVerified	BIT NULL
-)
-GO
-
 /* UserAccountType */
 IF OBJECT_ID('dbo.UserAccountType','U') IS NOT NULL
 	DROP TABLE UserAccountType
@@ -163,11 +148,6 @@ GO
 /* UserPassword */
 ALTER TABLE UserPassword
 	ADD CONSTRAINT UsrPassUsrId_fk FOREIGN KEY (UserAccountID) REFERENCES UserAccount(UserAccountID)
-GO
-
-/* ContactInfo */
-ALTER TABLE ContactInfo
-	ADD CONSTRAINT ContUsrId_fk FOREIGN KEY (UserAccountID) REFERENCES UserAccount(UserAccountID)
 GO
 
 /* SecurityQuestion */

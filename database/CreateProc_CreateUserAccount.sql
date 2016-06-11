@@ -10,9 +10,6 @@ CREATE PROCEDURE CreateUserAccount
 	@DATECREATED	datetime,
 	@PASSHASH		varbinary(128),
 	@PASSSALT		varbinary(64),
-	@NICKNAME		varchar(20),
-	@EMAIL			varchar(100),
-	@BIRTHDATE		datetime,
 	@ACCTYPE		varchar(20),
 	@ANSHASH		varbinary(128),
 	@ANSSALT		varbinary(64),
@@ -37,10 +34,6 @@ BEGIN
 		-- Create UserPassword record
 		INSERT INTO UserPassword (UserAccountID, PasswordHash, PasswordSalt)
 			VALUES (@USERID, @PASSHASH, @PASSSALT)
-
-		-- Create ContactInfo record
-		INSERT INTO ContactInfo (UserAccountID, Nickname, Email, BirthDate, EmailVerified)
-			VALUES (@USERID, @NICkNAME, @EMAIL, @BIRTHDATE, 0)
 
 		-- Create SecurityQuestion record
 		INSERT INTO SecurityQuestion (UserAccountID, SecurityQuestionTypeID)
